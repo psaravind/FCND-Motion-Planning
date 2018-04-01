@@ -30,7 +30,7 @@ You're reading it! Below I describe how I addressed each rubric point and where 
 
 `motion_planning.py` implementes a state machine as shown below ![Finite State machine for mition planning](./misc/motion_planning.png).
 
-Each state is represented by a node, edges show the transistions from one state to another. The states defined in lines [motion_planning.py](./motion_planning.py#L15-L22) is the status of the drone that is waiting to execute a transition. 
+Each state is represented by a node, edges show the transistions from one state to another. The states defined in lines [motion_planning.py:15-22](./motion_planning.py#L15-L22) is the status of the drone that is waiting to execute a transition. 
 
 States | Description
 ------- | -----------
@@ -42,7 +42,7 @@ WAYPOINT | Drone is at a way point
 LANDING | Drone lands at a waypoint or goal
 DISARMING | Drone is disarmed to release control
 
-The transitions which are set of actions from one state to another are done in lines motion_planning.py:61 to 72 and their corresponding implementations are in lines [motion_planning.py](./motion_planning.py#L74-L107).
+The transitions which are set of actions from one state to another are done in lines motion_planning.py:61 to 72 and their corresponding implementations are in lines [motion_planning.py:74-107](./motion_planning.py#L74-L107).
 
 Transition | Description
 ------- | -----------
