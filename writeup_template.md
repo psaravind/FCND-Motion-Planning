@@ -90,13 +90,7 @@ Disarming | Drone is disarmed and released control
 [planning_utils.py:166-180](./planning_utils.py#L166-L180) shows the waypoint prunning, if the waypoint is already in the path between 2 waypoint, then the waypoint is removed, this is done by doing collinearity check in lines [planning_utils.py](./planning_utils.py#L161-L164), to determine if the waypoints are on the same line.
 
 ### Execute the flight
-#### 1. Does it work?
-It works!
+Figure below shows the waypoint path taken by the drone for start longitue:-122.39745, latitude:37.79248, goal longitude:-122.40195876, latitude:37.79673913.
 
-### Double check that you've met specifications for each of the [rubric](https://review.udacity.com/#!/rubrics/1534/view) points.
-  
-# Extra Challenges: Real World Planning
-
-For an extra challenge, consider implementing some of the techniques described in the "Real World Planning" lesson. You could try implementing a vehicle model to take dynamic constraints into account, or implement a replanning method to invoke if you get off course or encounter unexpected obstacles.
-
+![Drone Path](./misc/path1.png) 
 
