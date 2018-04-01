@@ -28,7 +28,7 @@ You're reading it! Below I describe how I addressed each rubric point and where 
 
 #### 1. Explain the functionality of what's provided in `motion_planning.py` and `planning_utils.py`
 
-`motion_planning.py` implementes a state machine as shown below ![Finite State machine for mition planning](./misc/motion_planning.png).
+`motion_planning.py` implementes a state machine as shown below ![Finite State machine for mition planning](./misc/motion_planning.png).  This module implements new state `PLANNING`, not implemented in `backyard_flyer.py`, this new state is introduced between `ARMING` and `TAKEOFF`.  When the transition happens between `ARMING` and `PLANNING` in the state_calback() method in [motion_planning.py:61-72](./motion_planning.py#L61-L72) path_plan() method is called to calculate the waypoints needed for the drone to reach its goal.
 
 Each state is represented by a node, edges show the transistions from one state to another. The states defined in lines [motion_planning.py:15-22](./motion_planning.py#L15-L22) is the status of the drone that is waiting to execute a transition. 
 
@@ -63,22 +63,22 @@ prune_path : if the waypoint is already in the path between 2 waypoint, then the
 ### Implementing Your Path Planning Algorithm
 
 #### 1. Set your global home position
-[motion_planning.py](./motion_planning.py#L123-L129) shows the first line of `colliders.csv` being read to extract lat0 and lon0 and using it to set the global home position using self.set_home_position() method.
+[motion_planning.py:123-129](./motion_planning.py#L123-L129) shows the first line of `colliders.csv` being read to extract lat0 and lon0 and using it to set the global home position using self.set_home_position() method.
 
 #### 2. Set your current local position
-[motion_planning.py](./motion_planning.py#L133) shows the code for setting up current location position using global_to_local() function and self.global_position and self_global_home
+[motion_planning.py:133](./motion_planning.py#L133) shows the code for setting up current location position using global_to_local() function and self.global_position and self_global_home
 
 #### 3. Set grid start position from local position
-[motion_planning.py](./motion_planning.py#L138-L145) shows the code reading the obstacle map, creating a grid with the given data and calculating the starting point on the gird.
+[motion_planning.py:138-145](./motion_planning.py#L138-L145) shows the code reading the obstacle map, creating a grid with the given data and calculating the starting point on the gird.
 
 #### 4. Set grid goal position from geodetic coords
-[motion_planning.py](./motion_planning.py#L149-L152) sets the hardcoaded goal position, the coordinates are convered to local coordinated to be used in the A* algorithm.
+[motion_planning.py:149-152](./motion_planning.py#L149-L152) sets the hardcoaded goal position, the coordinates are convered to local coordinated to be used in the A* algorithm.
 
 #### 5. Modify A* to include diagonal motion (or replace A* altogether)
-[planning_utils.py](./planning_utils.py#L58-L61) shows the diagonal movements and the corresponding cost of sqrt(2).  These new actions were used in [planning_utils.py](./planning_utils.py#L92-L99) along with with original movements.
+[planning_utils.py:58-61](./planning_utils.py#L58-L61) shows the diagonal movements and the corresponding cost of sqrt(2).  These new actions were used in [planning_utils.py:92-99](./planning_utils.py#L92-L99) along with with original movements.
 
 #### 6. Cull waypoints 
- [planning_utils.py](./planning_utils.py#L166-L180) shows the waypoint prunning, if the waypoint is already in the path between 2 waypoint, then the waypoint is removed, this is done by doing collinearity check in lines  [planning_utils.py](./planning_utils.py#L161-L164), to determine if the waypoints are on the same line
+[planning_utils.py:166-180](./planning_utils.py#L166-L180) shows the waypoint prunning, if the waypoint is already in the path between 2 waypoint, then the waypoint is removed, this is done by doing collinearity check in lines [planning_utils.py](./planning_utils.py#L161-L164), to determine if the waypoints are on the same line.
 
 ### Execute the flight
 #### 1. Does it work?
