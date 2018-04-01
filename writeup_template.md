@@ -28,9 +28,10 @@ You're reading it! Below I describe how I addressed each rubric point and where 
 
 #### 1. Explain the functionality of what's provided in `motion_planning.py` and `planning_utils.py`
 
-`motion_planning.py` implementes a state machine as shown below ![Finite State machine for mition planning](./misc/motion_planning.png).  This module implements new state `PLANNING`, not implemented in `backyard_flyer.py`, this new state is introduced between `ARMING` and `TAKEOFF`.  When the transition happens between `ARMING` and `PLANNING` in the state_calback() method in [motion_planning.py:61-72](./motion_planning.py#L61-L72) path_plan() method is called to calculate the waypoints needed for the drone to reach its goal.
+`motion_planning.py` implementes a state machine as shown below ![Finite State machine for motion planning](./misc/motion_planning.png).  
+`motion_planning.py` adds a new state `PLANNING` to the states used in `backyard_flyer.py`, this is introduced between `ARMING` and `TAKEOFF` in the finite state machine.  When the transition happens between `ARMING` and `PLANNING` in the state_calback() method in [motion_planning.py:61-72](./motion_planning.py#L61-L72) path_plan() method is called to calculate the waypoints needed for the drone to reach its goal.
 
-Each state is represented by a node, edges show the transistions from one state to another. The states defined in lines [motion_planning.py:15-22](./motion_planning.py#L15-L22) is the status of the drone that is waiting to execute a transition. 
+Each state in the finite state machine is represented by a node, edges show the transistions from one state to another. The states defined in lines [motion_planning.py:15-22](./motion_planning.py#L15-L22) is the status of the drone that is waiting to execute a transition. 
 
 States | Description
 ------- | -----------
@@ -42,7 +43,7 @@ WAYPOINT | Drone is at a way point
 LANDING | Drone lands at a waypoint or goal
 DISARMING | Drone is disarmed to release control
 
-The transitions which are set of actions from one state to another are done in lines motion_planning.py:61 to 72 and their corresponding implementations are in lines [motion_planning.py:74-107](./motion_planning.py#L74-L107).
+The transitions which are set of actions from one state to another are done in lines [motion_planning.py:61-72](./motion_planning.py#L61-L72) and their corresponding implementations are in lines [motion_planning.py:74-107](./motion_planning.py#L74-L107).
 
 Transition | Description
 ------- | -----------
@@ -54,11 +55,19 @@ Landing | Drone reached its goal and is prepared to land
 Disarming | Drone is disarmed and released control
 
 `planning_utils.py` implements following functions 
-create_grid : returns a grid representation of a 2D configuration space based on given obstacle data, drone altitude and safety distance arguments
-valid_actions : returns a list of valid actions given a grid and current node
-a_star : Given a grid and heuristic functions returns the lowest cost path from start to goal
-heuristic : ranks alternatives in search algorithm, implemented using numpy linalg vetor norm
-prune_path : if the waypoint is already in the path between 2 waypoint, then the waypoint is removed, this is done by doing collinearity check to determine if the waypoints are on the same line
+. create_grid : returns a grid representation of a 2D configuration space based on given obstacle data, drone altitude and safety distance arguments
+. valid_actions : returns a list of valid actions given a grid and current node
+. a_star : Given a grid and heuristic functions returns the lowest cost path from start to goal
+. heuristic : ranks alternatives in search algorithm, implemented using numpy linalg vetor norm
+. prune_path : if the waypoint is already in the path between 2 waypoint, then the waypoint is removed, this is done by doing collinearity check to determine if the waypoints are on the same line
+
+`Path_Plan()` method implementes following functionality:
+. [motion_planning.py:138](./motion_planning.py#138): Load the the obstacle map `colliders.csv`
+. [motion_planning.py:141](./motion_planning.py#141): Create the grid with loaded map, target altitude and safety distance
+. [motion_planning.py:149](./motion_planning.py#149): set goal to longitude: -122.40195876, latitude: 37.79673913, and convert to local coordinates
+. [motion_planning.py:160](./motion_planning.py#160): Find a path to goal by executing A* search algorithm implemeted in `planning_utils.py`
+. [motion_planning.py:163](./motion_planning.py#163): Prune path
+. [motion_planning.py:171](./motion_planning.py#171): Send way points to simulator
 
 ### Implementing Your Path Planning Algorithm
 
