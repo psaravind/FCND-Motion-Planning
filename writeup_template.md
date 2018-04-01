@@ -28,7 +28,7 @@ You're reading it! Below I describe how I addressed each rubric point and where 
 
 #### 1. Explain the functionality of what's provided in `motion_planning.py` and `planning_utils.py`
 
-`motion_planning.py` implementes a state machine as shown below ![Finite State machine for motion planning](./misc/motion_planning.png).  
+`motion_planning.py` implementes a state machine as shown below ![Finite State machine for motion planning](./misc/motion_planning_1.png).  
 `motion_planning.py` adds a new state `PLANNING` to the states used in `backyard_flyer.py`, this is introduced between `ARMING` and `TAKEOFF` in the finite state machine.  When the transition happens between `ARMING` and `PLANNING` in the state_calback() method in [motion_planning.py:61-72](./motion_planning.py#L61-L72) path_plan() method is called to calculate the waypoints needed for the drone to reach its goal.
 
 Each state in the finite state machine is represented by a node, edges show the transistions from one state to another. The states defined in lines [motion_planning.py:15-22](./motion_planning.py#L15-L22) is the status of the drone that is waiting to execute a transition. 
@@ -90,7 +90,7 @@ Disarming | Drone is disarmed and released control
 [planning_utils.py:166-180](./planning_utils.py#L166-L180) shows the waypoint prunning, if the waypoint is already in the path between 2 waypoint, then the waypoint is removed, this is done by doing collinearity check in lines [planning_utils.py](./planning_utils.py#L161-L164), to determine if the waypoints are on the same line.
 
 ### Execute the flight
-Figure below shows the waypoint path taken by the drone for start longitue:-122.39745, latitude:37.79248, goal longitude:-122.40195876, latitude:37.79673913.
+Figure below shows the waypoint path taken by the drone for start longitude:-122.39745, latitude:37.79248, goal longitude:-122.40195876, latitude:37.79673913.
 
 ![Drone Path](./misc/path1.png) 
 
