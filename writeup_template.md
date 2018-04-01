@@ -27,17 +27,38 @@ You're reading it! Below I describe how I addressed each rubric point and where 
 ### Explain the Starter Code
 
 #### 1. Explain the functionality of what's provided in `motion_planning.py` and `planning_utils.py`
-These scripts contain a basic planning implementation that includes...
 
-And here's a lovely image of my results (ok this image has nothing to do with it, but it's a nice example of how to include images in your writeup!)
-![Top Down View](./misc/high_up.png)
+`motion_planning.py` implementes a state machine as shown below ![Finite State machine for mition planning](./misc/motion_planning.png).
+Each state is represented by a node, edges show the transistions from one state to another. The states defined in lines 15 to 22 is the status of the drone that is waiting to execute a transition. 
 
-Here's | A | Snappy | Table
---- | --- | --- | ---
-1 | `highlight` | **bold** | 7.41
-2 | a | b | c
-3 | *italic* | text | 403
-4 | 2 | 3 | abcd
+States | Description
+------- | -----------
+MANUAL | This is the initial state of the drone, where the drone could be manually moved
+ARMING | In this state the drone is armed and taken control by the module for path planning to reach a goal
+PLANNING | Drone is in planning state and finds the waypoints to reach the goal
+TAKEOFF | Drone takes off to go to next way point
+WAYPOINT | Drone is at a way point
+LANDING | Drone lands at a waypoint or goal
+DISARMING | Drone is disarmed to release control
+
+The transitions which are set of actions from one state to another are done in lines 61 to 72 and their corresponding implementations are in lines 74 to 107.
+
+Transition | Description
+------- | -----------
+Manual | Drone is transitioned from DISARMING state to MANUAL state
+Arming | Drone is transitioned from MANUAL state to ARMING state, the drone is armed and taken control by the module
+Take off | Drone is transitioned from PLANNING state to TAKEOFF state with drone going to target altitude
+Waypoint | Pops the next waypoint from the stack and sets the drone target to go to next waypoint
+Landing | Drone reached its goal and is prepared to land
+Disarming | Drone is disarmed and released control
+
+`planning_utils.py` implements  
+create_grid
+valid_actions
+a_star
+heuristic
+prune_path
+
 
 ### Implementing Your Path Planning Algorithm
 
