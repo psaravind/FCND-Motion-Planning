@@ -62,12 +62,12 @@ Disarming | Drone is disarmed and released control
 * prune_path : if the waypoint is already in the path between 2 waypoint, then the waypoint is removed, this is done by doing collinearity check to determine if the waypoints are on the same line
 
 `Path_Plan()` method implementes following functionality:
-. [motion_planning.py:138](./motion_planning.py#138): Load the the obstacle map `colliders.csv`
-. [motion_planning.py:141](./motion_planning.py#141): Create the grid with loaded map, target altitude and safety distance
-. [motion_planning.py:149](./motion_planning.py#149): set goal to longitude: -122.40195876, latitude: 37.79673913, and convert to local coordinates
-. [motion_planning.py:160](./motion_planning.py#160): Find a path to goal by executing A* search algorithm implemeted in `planning_utils.py`
-. [motion_planning.py:163](./motion_planning.py#163): Prune path
-. [motion_planning.py:171](./motion_planning.py#171): Send way points to simulator
+* [motion_planning.py:138](./motion_planning.py#138): Load the the obstacle map `colliders.csv`
+* [motion_planning.py:141](./motion_planning.py#141): Create the grid with loaded map, target altitude and safety distance
+* [motion_planning.py:149](./motion_planning.py#149): set goal to longitude: -122.40195876, latitude: 37.79673913, and convert to local coordinates
+* [motion_planning.py:160](./motion_planning.py#160): Find a path to goal by executing A* search algorithm implemeted in `planning_utils.py`
+* [motion_planning.py:163](./motion_planning.py#163): Prune path
+* [motion_planning.py:171](./motion_planning.py#171): Send way points to simulator
 
 ### Implementing Your Path Planning Algorithm
 
