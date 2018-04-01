@@ -29,7 +29,8 @@ You're reading it! Below I describe how I addressed each rubric point and where 
 #### 1. Explain the functionality of what's provided in `motion_planning.py` and `planning_utils.py`
 
 `motion_planning.py` implementes a state machine as shown below ![Finite State machine for mition planning](./misc/motion_planning.png).
-Each state is represented by a node, edges show the transistions from one state to another. The states defined in lines 15 to 22 is the status of the drone that is waiting to execute a transition. 
+
+Each state is represented by a node, edges show the transistions from one state to another. The states defined in lines motion_planning.py:15 to 22 is the status of the drone that is waiting to execute a transition. 
 
 States | Description
 ------- | -----------
@@ -41,7 +42,7 @@ WAYPOINT | Drone is at a way point
 LANDING | Drone lands at a waypoint or goal
 DISARMING | Drone is disarmed to release control
 
-The transitions which are set of actions from one state to another are done in lines 61 to 72 and their corresponding implementations are in lines 74 to 107.
+The transitions which are set of actions from one state to another are done in lines motion_planning.py:61 to 72 and their corresponding implementations are in lines motion_planning.py:74 to 107.
 
 Transition | Description
 ------- | -----------
@@ -52,43 +53,32 @@ Waypoint | Pops the next waypoint from the stack and sets the drone target to go
 Landing | Drone reached its goal and is prepared to land
 Disarming | Drone is disarmed and released control
 
-`planning_utils.py` implements  
-create_grid
-valid_actions
-a_star
-heuristic
-prune_path
-
+`planning_utils.py` implements following functions 
+create_grid : returns a grid representation of a 2D configuration space based on given obstacle data, drone altitude and safety distance arguments
+valid_actions : returns a list of valid actions given a grid and current node
+a_star : Given a grid and heuristic functions returns the lowest cost path from start to goal
+heuristic : ranks alternatives in search algorithm, implemented using numpy linalg vetor norm
+prune_path : if the waypoint is already in the path between 2 waypoint, then the waypoint is removed, this is done by doing collinearity check to determine if the waypoints are on the same line
 
 ### Implementing Your Path Planning Algorithm
 
 #### 1. Set your global home position
-Here students should read the first line of the csv file, extract lat0 and lon0 as floating point values and use the self.set_home_position() method to set global home. Explain briefly how you accomplished this in your code.
-
-
-And here is a lovely picture of our downtown San Francisco environment from above!
-![Map of SF](./misc/map.png)
+Line 123:129 shows the first line of `colliders.csv` being read to extract lat0 and lon0 and using it to set the global home position using self.set_home_position() method.
 
 #### 2. Set your current local position
-Here as long as you successfully determine your local position relative to global home you'll be all set. Explain briefly how you accomplished this in your code.
-
-
-Meanwhile, here's a picture of me flying through the trees!
-![Forest Flying](./misc/in_the_trees.png)
+Line 133 shows the code for setting up current location position using global_to_local() function and self.global_position and self_global_home
 
 #### 3. Set grid start position from local position
-This is another step in adding flexibility to the start location. As long as it works you're good to go!
+Lines 138 to 145 shows the code reading the obstacle map, creating a grid with the given data and calculating the starting point on the gird.
 
 #### 4. Set grid goal position from geodetic coords
-This step is to add flexibility to the desired goal location. Should be able to choose any (lat, lon) within the map and have it rendered to a goal location on the grid.
+Lines 149 to 152 sets the hardcoaded goal position, the coordinates are convered to local coordinated to be used in the A* algorithm.
 
 #### 5. Modify A* to include diagonal motion (or replace A* altogether)
-Minimal requirement here is to modify the code in planning_utils() to update the A* implementation to include diagonal motions on the grid that have a cost of sqrt(2), but more creative solutions are welcome. Explain the code you used to accomplish this step.
+Lines 58 to 61 shows the diagonal movements and the corresponding cost of sqrt(2).  These new actions were used in lines 92:99 along with with original movements.
 
 #### 6. Cull waypoints 
-For this step you can use a collinearity test or ray tracing method like Bresenham. The idea is simply to prune your path of unnecessary waypoints. Explain the code you used to accomplish this step.
-
-
+The lines 166 to 180 shows the waypoint prunning, if the waypoint is already in the path between 2 waypoint, then the waypoint is removed, this is done by doing collinearity check lines 161 to 164, to determine if the waypoints are on the same line
 
 ### Execute the flight
 #### 1. Does it work?
