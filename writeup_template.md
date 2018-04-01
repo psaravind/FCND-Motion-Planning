@@ -30,7 +30,7 @@ You're reading it! Below I describe how I addressed each rubric point and where 
 
 `motion_planning.py` implementes a state machine as shown below ![Finite State machine for mition planning](./misc/motion_planning.png).
 
-Each state is represented by a node, edges show the transistions from one state to another. The states defined in lines motion_planning.py:15 to 22 is the status of the drone that is waiting to execute a transition. 
+Each state is represented by a node, edges show the transistions from one state to another. The states defined in lines [motion_planning.py](./motion_planning.py#L15-L22) is the status of the drone that is waiting to execute a transition. 
 
 States | Description
 ------- | -----------
@@ -42,7 +42,7 @@ WAYPOINT | Drone is at a way point
 LANDING | Drone lands at a waypoint or goal
 DISARMING | Drone is disarmed to release control
 
-The transitions which are set of actions from one state to another are done in lines motion_planning.py:61 to 72 and their corresponding implementations are in lines motion_planning.py:74 to 107.
+The transitions which are set of actions from one state to another are done in lines motion_planning.py:61 to 72 and their corresponding implementations are in lines [motion_planning.py](./motion_planning.py#L74-L107).
 
 Transition | Description
 ------- | -----------
@@ -63,22 +63,22 @@ prune_path : if the waypoint is already in the path between 2 waypoint, then the
 ### Implementing Your Path Planning Algorithm
 
 #### 1. Set your global home position
-Line 123:129 shows the first line of `colliders.csv` being read to extract lat0 and lon0 and using it to set the global home position using self.set_home_position() method.
+[motion_planning.py](./motion_planning.py#L123-L129) shows the first line of `colliders.csv` being read to extract lat0 and lon0 and using it to set the global home position using self.set_home_position() method.
 
 #### 2. Set your current local position
-Line 133 shows the code for setting up current location position using global_to_local() function and self.global_position and self_global_home
+[motion_planning.py](./motion_planning.py#L133) shows the code for setting up current location position using global_to_local() function and self.global_position and self_global_home
 
 #### 3. Set grid start position from local position
-Lines 138 to 145 shows the code reading the obstacle map, creating a grid with the given data and calculating the starting point on the gird.
+[motion_planning.py](./motion_planning.py#L138-L145) shows the code reading the obstacle map, creating a grid with the given data and calculating the starting point on the gird.
 
 #### 4. Set grid goal position from geodetic coords
-Lines 149 to 152 sets the hardcoaded goal position, the coordinates are convered to local coordinated to be used in the A* algorithm.
+[motion_planning.py](./motion_planning.py#L149-L152) sets the hardcoaded goal position, the coordinates are convered to local coordinated to be used in the A* algorithm.
 
 #### 5. Modify A* to include diagonal motion (or replace A* altogether)
-Lines 58 to 61 shows the diagonal movements and the corresponding cost of sqrt(2).  These new actions were used in lines 92:99 along with with original movements.
+[planning_utils.py](./planning_utils.py#L58-L61) shows the diagonal movements and the corresponding cost of sqrt(2).  These new actions were used in [planning_utils.py](./planning_utils.py#L92-L99) along with with original movements.
 
 #### 6. Cull waypoints 
-The lines 166 to 180 shows the waypoint prunning, if the waypoint is already in the path between 2 waypoint, then the waypoint is removed, this is done by doing collinearity check lines 161 to 164, to determine if the waypoints are on the same line
+ [planning_utils.py](./planning_utils.py#L166-L180) shows the waypoint prunning, if the waypoint is already in the path between 2 waypoint, then the waypoint is removed, this is done by doing collinearity check in lines  [planning_utils.py](./planning_utils.py#L161-L164), to determine if the waypoints are on the same line
 
 ### Execute the flight
 #### 1. Does it work?
