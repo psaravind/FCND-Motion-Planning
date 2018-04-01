@@ -55,11 +55,11 @@ Landing | Drone reached its goal and is prepared to land
 Disarming | Drone is disarmed and released control
 
 `planning_utils.py` implements following functions 
-. create_grid : returns a grid representation of a 2D configuration space based on given obstacle data, drone altitude and safety distance arguments
-. valid_actions : returns a list of valid actions given a grid and current node
-. a_star : Given a grid and heuristic functions returns the lowest cost path from start to goal
-. heuristic : ranks alternatives in search algorithm, implemented using numpy linalg vetor norm
-. prune_path : if the waypoint is already in the path between 2 waypoint, then the waypoint is removed, this is done by doing collinearity check to determine if the waypoints are on the same line
+* create_grid : returns a grid representation of a 2D configuration space based on given obstacle data, drone altitude and safety distance arguments
+* valid_actions : returns a list of valid actions given a grid and current node
+* a_star : Given a grid and heuristic functions returns the lowest cost path from start to goal
+* heuristic : ranks alternatives in search algorithm, implemented using numpy linalg vetor norm
+* prune_path : if the waypoint is already in the path between 2 waypoint, then the waypoint is removed, this is done by doing collinearity check to determine if the waypoints are on the same line
 
 `Path_Plan()` method implementes following functionality:
 . [motion_planning.py:138](./motion_planning.py#138): Load the the obstacle map `colliders.csv`
